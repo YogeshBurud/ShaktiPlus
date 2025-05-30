@@ -1,0 +1,35 @@
+<div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email" formControlName="email" />
+
+            @if (loginForm.get('email')?.hasError('required')) {
+            <mat-error>Email is required</mat-error>
+            }
+            @if (loginForm.get('email')?.hasError('email')) {
+            <mat-error>Invalid email format</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password"
+                formControlName="password" />
+            <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+
+            @if (loginForm.get('password')?.hasError('required')) {
+            <mat-error>Password is required</mat-error>
+            }
+            @if (loginForm.get('password')?.hasError('minlength')) {
+            <mat-error>Minimum 6 characters</mat-error>
+            }
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid">
+            Login
+        </button>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+.table-header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .filter-section{
+        width: 75%;
+    }
+
+    mat-form-field{
+        width: 100%;
+    }
+}

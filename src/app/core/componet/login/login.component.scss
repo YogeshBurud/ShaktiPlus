@@ -1,0 +1,22 @@
+$container-bg: #fff;
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+$radius: 12px;
+$padding: 30px;
+
+.container {
+  width: 350px;
+  margin: 100px auto;
+  padding: $padding;
+  box-shadow: $box-shadow;
+  border-radius: $radius;
+  background: $container-bg;
+
+  .full-width {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+  }
+}

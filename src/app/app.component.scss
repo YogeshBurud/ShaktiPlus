@@ -1,0 +1,19 @@
+.main-outer-container{
+    
+
+    .body-container{
+        display:flex;
+        flex-direction: row;
+        background: #f2f2f2;
+
+        .sidebar-section{
+            width:20%;
+        }
+        .main-container{
+            padding: 15px;
+            height:calc(100vh - 60px);
+            overflow: auto; 
+             width:80%
+        }
+    }
+}
