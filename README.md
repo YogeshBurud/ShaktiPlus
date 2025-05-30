@@ -1,0 +1,2 @@
+# ShaktiPlus
+Inventery Management System
