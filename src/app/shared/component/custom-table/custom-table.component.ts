@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MyDilogComponent } from '../my-dilog/my-dilog.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { MatIconModule } from '@angular/material/icon';
 
 export interface UserData {
   id: string;
@@ -50,15 +50,13 @@ const NAMES: string[] = [
 
 @Component({
   selector: 'app-custom-table',
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,MatIconModule],
   templateUrl: './custom-table.component.html',
   styleUrl: './custom-table.component.scss'
 })
 export class CustomTableComponent {
 
-
-
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit','Action'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -103,11 +101,19 @@ export class CustomTableComponent {
       console.log('Form was submitted!');
     }
   });
-    
-  }
+}
 
-  
-  
+
+// Action button logics
+onEdit(row: UserData ) {
+  console.log('Editing row:', row);
+  this.openDialog();  
+}
+onDelete(row: UserData): void {
+  if (confirm('Are you sure you want to delete this item?')) {
+    this.dataSource.data = this.dataSource.data.filter(item => item !== row);
+  }
+}
 }
 
 /** Builds and returns a new User. */
