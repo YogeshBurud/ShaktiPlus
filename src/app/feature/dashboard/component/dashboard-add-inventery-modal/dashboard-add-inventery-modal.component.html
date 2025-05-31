@@ -1,0 +1,86 @@
+<mat-card class="form-card">
+    <h2 class="pt-0 modal-header" mat-dialog-title>Add Product</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <!-- Full-width: Description -->
+                <div fxFlex>
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Part Number</mat-label>
+                        <input matInput formControlName="partnumber" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Description</mat-label>
+                    <input matInput formControlName="description" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Single Price</mat-label>
+                    <input matInput formControlName="singlePrice" type="number" />
+                </mat-form-field>
+            </div>
+            <div class="form-group col-md-6">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Availability</mat-label>
+                    <input matInput formControlName="availability" type="number" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <mat-form-field>
+                    <mat-label>Car Model</mat-label>
+                    <mat-select formControlName="carModel" multiple>
+                        @for (car of carModelList; track car.label) {
+                        <mat-option [value]="car.label">{{car.label}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group col-md-6">
+                <mat-form-field>
+                    <mat-label>Fuel Type</mat-label>
+                    <mat-select formControlName="fuelType" multiple>
+                        @for (fuelType of fuelTypeList; track fuelType.value) {
+                        <mat-option [value]="fuelType.value">{{fuelType.viewValue}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <mat-form-field appearance="outline" class="form-field" fxFlex>
+                    <mat-label>Total Amount</mat-label>
+                    <input matInput formControlName="totalAmount" type="number" />
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div fxLayoutAlign="end">
+                    <button mat-raised-button mat-dialog-close class="submit-btn w-100" type="button">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div fxLayoutAlign="end">
+                    <button mat-flat-button color="primary" class="submit-btn w-100" type="submit">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</mat-card>

@@ -4,9 +4,9 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MyDilogComponent } from '../my-dilog/my-dilog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { DashboardAddInventeryModalComponent } from '../../../feature/dashboard/component/dashboard-add-inventery-modal/dashboard-add-inventery-modal.component';
 
 export interface UserData {
   id: string;
@@ -91,7 +91,7 @@ export class CustomTableComponent {
 
   // open dilog button
   openDialog(){
-     const dialogRef = this.dialog.open(MyDilogComponent, {
+     const dialogRef = this.dialog.open(DashboardAddInventeryModalComponent, {
     width: '700px',
   });
 
