@@ -1,9 +1,8 @@
 [
     {
-        "description": "BOLT",
-        "single price": 6,
-        "available": 20,
-        "cars": [
+        "partNumber": "P001",
+        "partName": "BOLT",
+        "carsModel": [
             {
                 "id": 1,
                 "name": "MARUTO800"
@@ -14,16 +13,18 @@
             },
             {
                 "id": 3,
-                "name": "ASTAR"
+                "name": "ASTAR 2"
             }
         ],
-        "total amount": 120
+        "totalQuantity": 60,
+        "availableQuantity": 50,
+        "sellOutQuantity": 10,
+        "price": 6
     },
     {
-        "description": "NUT",
-        "single price": 50,
-        "available": 50,
-        "cars": [
+        "partNumber": "P002",
+        "partName": "NUT",
+        "carsModel": [
             {
                 "id": 1,
                 "name": "MARUTO800"
@@ -34,9 +35,78 @@
             },
             {
                 "id": 3,
-                "name": "ASTAR"
+                "name": "ASTAR 2"
             }
         ],
-        "total amount": 2500
+        "totalQuantity": 60,
+        "availableQuantity": 50,
+        "sellOutQuantity": 10,
+        "price": 6
+    },
+    {
+        "partNumber": "P003",
+        "partName": "WASHER",
+        "carsModel": [
+            {
+                "id": 1,
+                "name": "MARUTO800"
+            },
+            {
+                "id": 2,
+                "name": "ASTAR"
+            },
+            {
+                "id": 3,
+                "name": "ASTAR 2"
+            }
+        ],
+        "totalQuantity": 60,
+        "availableQuantity": 50,
+        "sellOutQuantity": 10,
+        "price": 6
+    },
+    {
+        "partNumber": "P004",
+        "partName": "SCREW",
+        "carsModel": [
+            {
+                "id": 1,
+                "name": "MARUTO800"
+            },
+            {
+                "id": 2,
+                "name": "ASTAR"
+            },
+            {
+                "id": 3,
+                "name": "ASTAR 2"
+            }
+        ],
+        "totalQuantity": 60,
+        "availableQuantity": 50,
+        "sellOutQuantity": 10,
+        "price": 6
+    },
+    {
+        "partNumber": "P005",
+        "partName": "RIVET",
+        "carsModel": [
+            {
+                "id": 1,
+                "name": "MARUTO800"
+            },
+            {
+                "id": 2,
+                "name": "ASTAR"
+            },
+            {
+                "id": 3,
+                "name": "ASTAR 2"
+            }
+        ],
+        "totalQuantity": 60,
+        "availableQuantity": 50,
+        "sellOutQuantity": 10,
+        "price": 6
     }
 ]

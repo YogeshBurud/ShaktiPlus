@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -8,70 +8,40 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardAddInventeryModalComponent } from '../../../feature/dashboard/component/dashboard-add-inventery-modal/dashboard-add-inventery-modal.component';
 import { MatButtonModule } from '@angular/material/button';
+import DASHBOARD_TABLE_DATA from '../../../data/dashboard-table-data.json';
+import { CommonModule } from '@angular/common';
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
+export interface DashboardTableData {
+  partNumber: string;
+  partName: string;
+  carsModel: any; 
+  totalQuantity: number;
+  availableQuantity: number;
+  sellOutQuantity: number;
+  price: number;
+  action? :any
 }
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
-
 
 @Component({
   selector: 'app-custom-table',
-  imports: [  MatButtonModule,MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,MatIconModule],
+  imports: [CommonModule,MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule],
   templateUrl: './custom-table.component.html',
   styleUrl: './custom-table.component.scss'
 })
 export class CustomTableComponent {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit','Action'];
-  dataSource: MatTableDataSource<UserData>;
+ displayedColumns: string[] = ['partNumber', 'partName', 'carsModel', 'totalQuantity', 'availableQuantity','sellOutQuantity','price', 'Action'];
+ //dataSource = new MatTableDataSource<DashboardTableData>(DASHBOARD_TABLE_DATA);
+ dataSource: MatTableDataSource<DashboardTableData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
   readonly dilog = inject(MatDialog)
 
   constructor(private dialog: MatDialog) {
-    // Create 100 users
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
-
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
-
-    
+    this.dataSource = new MatTableDataSource(DASHBOARD_TABLE_DATA);
   }
 
   ngAfterViewInit() {
@@ -88,47 +58,32 @@ export class CustomTableComponent {
     }
   }
 
-
-
   // open dilog button
-  openDialog(){
-     const dialogRef = this.dialog.open(DashboardAddInventeryModalComponent, {
-    width: '700px',
-  });
+  openDialog() {
+    const dialogRef = this.dialog.open(DashboardAddInventeryModalComponent, {
+      width: '700px',
+    });
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result === 'submitted') {
-      // Do something after form submission
-      console.log('Form was submitted!');
-    }
-  });
-}
-
-// Action button logics
-onEdit(row: UserData ) {
-  console.log('Editing row:', row);
-  this.openDialog();  
-}
-onDelete(row: UserData): void {
-  if (confirm('Are you sure you want to delete this item?')) {
-    this.dataSource.data = this.dataSource.data.filter(item => item !== row);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'submitted') {
+        // Do something after form submission
+        console.log('Form was submitted!');
+      }
+    });
   }
-}
-}
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
+  // Action button logics
+  onEdit(row: any) {
+    console.log('Editing row:', row);
+    this.openDialog();
+  }
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
+  onDelete(row: any): void {
+    if (confirm('Are you sure you want to delete this item?')) {
+      //this.dataSource.data = this.dataSource.data.filter(item:any => item !== row);
+    }
+  }
+
+
 }
 
