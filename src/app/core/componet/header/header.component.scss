@@ -1,3 +1,12 @@
 .navbar{
-    box-shadow: 0px 0px 10px #888
+    box-shadow: 0px 0px 10px #888;
+    background: #072542;
+
+    .navbar-brand{
+        color: #fff;
+    }
+
+    .nav-link {
+    color: #fff
+}
 }
