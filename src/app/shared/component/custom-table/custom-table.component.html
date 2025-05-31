@@ -6,7 +6,9 @@
     </mat-form-field>
   </div>
   <div class="action-button-section">
-    <button type="submit" class="btn btn-primary" (click)="openDialog()">+ Add</button>
+    <button mat-flat-button class="btn w-100" (click)="openDialog()">
+      <mat-icon>add</mat-icon>  Add
+    </button>
   </div>
 </div>
 
@@ -37,15 +39,16 @@
       <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Action">
+    <!-- Action Column -->
+    <ng-container matColumnDef="Action" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
       <td mat-cell *matCellDef="let row">
 
         <button mat-icon-button color="primary" class="action-btn edit-btn mr-2" (click)="onEdit(row)">
-          <mat-icon style="color:green;">edit</mat-icon>
+          <mat-icon style="color:rgb(79, 43, 171);">edit</mat-icon>
         </button>
-       <button mat-fab aria-label="Example icon button with a delete icon" (click)="onDelete(row)">
-          <mat-icon class="danger" style="color:red;">delete</mat-icon>
+        <button  mat-icon-button aria-label="Example icon button with a delete icon" (click)="onDelete(row)">
+          <mat-icon class="danger" style="color:rgb(236, 77, 77);">delete</mat-icon>
         </button>
       </td>
     </ng-container>

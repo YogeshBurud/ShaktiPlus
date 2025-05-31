@@ -1,4 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+
+.action-button-section {
+
+    .btn,
+    .mat-mdc-unelevated-button:not(:disabled) {
+        background-color: #072542;
+        margin-bottom: 15px;
+        padding: 0px 20px;
+        font-size: 16px;
+
+        mat-icon {
+            font-weight: 600;
+        }
+
+    }
+
+}

@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardAddInventeryModalComponent } from '../../../feature/dashboard/component/dashboard-add-inventery-modal/dashboard-add-inventery-modal.component';
+import { MatButtonModule } from '@angular/material/button';
 
 export interface UserData {
   id: string;
@@ -50,7 +51,7 @@ const NAMES: string[] = [
 
 @Component({
   selector: 'app-custom-table',
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,MatIconModule],
+  imports: [  MatButtonModule,MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,MatIconModule],
   templateUrl: './custom-table.component.html',
   styleUrl: './custom-table.component.scss'
 })

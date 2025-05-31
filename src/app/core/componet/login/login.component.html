@@ -1,35 +1,40 @@
-<div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill" class="full-width">
-            <mat-label>UserName</mat-label>
-            <input matInput placeholder="Enter your UserName" formControlName="username" />
+<div class="login-container">
+    <div class="img-section"> </div>
+    <div class="login-form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <h3 class="header">Login</h3>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>UserName</mat-label>
+                <input matInput placeholder="Enter your UserName" formControlName="username" />
 
-            @if (loginForm.get('username')?.hasError('required')) {
-            <mat-error>UserName is required</mat-error>
-            }
-            @if (loginForm.get('username')?.hasError('username')) {
-            <mat-error>Invalid username format</mat-error>
-            }
-        </mat-form-field>
+                @if (loginForm.get('username')?.hasError('required')) {
+                <mat-error>UserName is required</mat-error>
+                }
+                @if (loginForm.get('username')?.hasError('username')) {
+                <mat-error>Invalid username format</mat-error>
+                }
+            </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password"
-                formControlName="password" />
-            <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
-                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password"
+                    formControlName="password" />
+                <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+
+                @if (loginForm.get('password')?.hasError('required')) {
+                <mat-error>Password is required</mat-error>
+                }
+                @if (loginForm.get('password')?.hasError('minlength')) {
+                <mat-error>Minimum 6 characters</mat-error>
+                }
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid">
+                Login
             </button>
+        </form>
+    </div>
 
-            @if (loginForm.get('password')?.hasError('required')) {
-            <mat-error>Password is required</mat-error>
-            }
-            @if (loginForm.get('password')?.hasError('minlength')) {
-            <mat-error>Minimum 6 characters</mat-error>
-            }
-        </mat-form-field>
-
-        <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid">
-            Login
-        </button>
-    </form>
 </div>
