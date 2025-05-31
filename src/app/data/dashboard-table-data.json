@@ -1,9 +1,42 @@
 [
     {
-        "DESCRIPTION": "BOLT",
-        "SINGLE PRICE": 6,
-        "AVAILABLE": 20,
-        "CARS" : "MARUTO800,ASTAR,ALTO,ALTO800,ALTOK10,BALENO,BREEZA,CELERIO,CIAZ,EECO,ERTIGA,ESTEEM,FRONX",
-        "TOTAL AMOUNT" : 120
+        "description": "BOLT",
+        "single price": 6,
+        "available": 20,
+        "cars": [
+            {
+                "id": 1,
+                "name": "MARUTO800"
+            },
+            {
+                "id": 2,
+                "name": "ASTAR"
+            },
+            {
+                "id": 3,
+                "name": "ASTAR"
+            }
+        ],
+        "total amount": 120
+    },
+    {
+        "description": "NUT",
+        "single price": 50,
+        "available": 50,
+        "cars": [
+            {
+                "id": 1,
+                "name": "MARUTO800"
+            },
+            {
+                "id": 2,
+                "name": "ASTAR"
+            },
+            {
+                "id": 3,
+                "name": "ASTAR"
+            }
+        ],
+        "total amount": 2500
     }
 ]

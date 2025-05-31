@@ -103,7 +103,6 @@ export class CustomTableComponent {
   });
 }
 
-
 // Action button logics
 onEdit(row: UserData ) {
   console.log('Editing row:', row);
