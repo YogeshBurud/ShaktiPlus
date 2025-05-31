@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './feature/dashboard/component/dashboard/dashboard.component';
 import { HomeComponent } from './core/componet/home/home.component';
 import { LoginComponent } from './core/componet/login/login.component';
+import { InventeryAccountComponent } from './feature/dashboard/component/inventery-account/inventery-account.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -9,7 +10,8 @@ export const routes: Routes = [
         path: 'home', component: HomeComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-            { path: 'dashboard', component: DashboardComponent }
+            { path: 'dashboard', component: DashboardComponent },
+            {path : 'account', component : InventeryAccountComponent}
         ]
     },
     { path: 'login', component: LoginComponent }
