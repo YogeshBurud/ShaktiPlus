@@ -1,9 +1,12 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MyDilogComponent } from '../my-dilog/my-dilog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface UserData {
   id: string;
@@ -11,7 +14,6 @@ export interface UserData {
   progress: string;
   fruit: string;
 }
-
 /** Constants used to fill up our data base. */
 const FRUITS: string[] = [
   'blueberry',
@@ -48,23 +50,27 @@ const NAMES: string[] = [
 
 @Component({
   selector: 'app-custom-table',
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,MatIconModule],
   templateUrl: './custom-table.component.html',
   styleUrl: './custom-table.component.scss'
 })
 export class CustomTableComponent {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+
+  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit','Action'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  readonly dilog = inject(MatDialog)
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     // Create 100 users
     const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(users);
+
+    
   }
 
   ngAfterViewInit() {
@@ -81,7 +87,32 @@ export class CustomTableComponent {
     }
   }
 
-  
+
+
+  // open dilog button
+  openDialog(){
+     const dialogRef = this.dialog.open(MyDilogComponent, {
+    width: '700px',
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === 'submitted') {
+      // Do something after form submission
+      console.log('Form was submitted!');
+    }
+  });
+}
+
+// Action button logics
+onEdit(row: UserData ) {
+  console.log('Editing row:', row);
+  this.openDialog();  
+}
+onDelete(row: UserData): void {
+  if (confirm('Are you sure you want to delete this item?')) {
+    this.dataSource.data = this.dataSource.data.filter(item => item !== row);
+  }
+}
 }
 
 /** Builds and returns a new User. */
