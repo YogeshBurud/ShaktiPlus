@@ -1,14 +1,14 @@
 <div class="container">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Enter your email" formControlName="email" />
+            <mat-label>UserName</mat-label>
+            <input matInput placeholder="Enter your UserName" formControlName="username" />
 
-            @if (loginForm.get('email')?.hasError('required')) {
-            <mat-error>Email is required</mat-error>
+            @if (loginForm.get('username')?.hasError('required')) {
+            <mat-error>UserName is required</mat-error>
             }
-            @if (loginForm.get('email')?.hasError('email')) {
-            <mat-error>Invalid email format</mat-error>
+            @if (loginForm.get('username')?.hasError('username')) {
+            <mat-error>Invalid username format</mat-error>
             }
         </mat-form-field>
 

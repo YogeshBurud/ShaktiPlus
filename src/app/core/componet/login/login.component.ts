@@ -5,11 +5,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   imports: [
-      ReactiveFormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -18,16 +19,17 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
-
-    loginForm: FormGroup;
+  loginForm: FormGroup;
   hide = true;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
       password: ['', [
         Validators.required,
         Validators.minLength(6),
@@ -38,8 +40,14 @@ export class LoginComponent implements OnInit{
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Form Submitted', this.loginForm.value);
-      this.loginForm.reset()
-      
+      if (this.loginForm.value.username === "shakti" && this.loginForm.value.password === "shakti") {
+        console.log("Login successful");
+        this.router.navigate(['/home']);
+      }
+      else {
+        console.log("Login failed");
+      }
+      this.loginForm.reset();
     }
   }
 }
