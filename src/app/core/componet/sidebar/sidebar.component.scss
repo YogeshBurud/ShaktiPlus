@@ -1,0 +1,47 @@
+.list-group {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border : none;
+    background: #fff;
+    margin: 2px 0px;
+
+
+    cursor: pointer;
+
+    mat-icon {
+      margin-right: 12px;
+      font-size: 20px;
+      color: #555;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      flex-grow: 1;
+    }
+
+    &:hover,
+    &.active {
+      background-color: #072542;
+      color: #072542;
+      border-radius: 0px 14px 14px 0px;
+
+      a {
+        color: #fff;
+      }
+
+      mat-icon {
+        color: #fff;
+      }
+    }
+  }
+}
