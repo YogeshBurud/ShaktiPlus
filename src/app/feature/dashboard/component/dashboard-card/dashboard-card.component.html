@@ -1,8 +1,11 @@
-@for (card of dashboardCardData; track card.id) {
-    <div class="card col col-4">
-        <div class="card-body">
-            <h6 class="card-title mr-4">{{card.lable}}:</h6>
-            <h5 class="card-title">{{card.quantity}}</h5>
-        </div>
+<div class="card-container">
+  @for (card of dashboardCardData; track card.id) {
+    <div class="card col p-0">
+      <div class="card-body d-flex p-0">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_balance"></mat-icon>
+        <h6 class="card-title mr-4 mt-1">{{card.lable}}:</h6>
+        <h5 class="card-title mt-1">{{card.quantity}}</h5>
+      </div>
+    </div>
+  }
 </div>
-}
