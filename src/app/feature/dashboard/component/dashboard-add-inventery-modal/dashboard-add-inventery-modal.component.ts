@@ -37,6 +37,7 @@ export class DashboardAddInventeryModalComponent {
 
   carModelList: any[] = CAR_LIST;
   fuelTypeList = FUEL_TYPE_LIST;
+  stoerdData :any[] = []
 
   form: FormGroup;
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<DashboardAddInventeryModalComponent>) {

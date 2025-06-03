@@ -1,7 +1,7 @@
 <!-- Add Dropdown  -->
-<div class="dropdown-section">
+<div class="dropdown-section d-flex">
   <div class="form-group" style="width: 100%;">
-    <mat-form-field style="width: 100%;">
+    <mat-form-field style="width: 93%;">
       <mat-label>Car Model</mat-label>
       <mat-select formControlName="carModel" multiple style="width: 100%;">
         @for (car of carModelList; track car.label) {
@@ -9,6 +9,14 @@
         }
       </mat-select>
     </mat-form-field>
+  </div>
+
+  <div class="action-button-section d-flex">
+     <button mat-flat-button class="mr-3">Update</button>
+
+       <button mat-flat-button class="btn" (click)="openDialog()">
+      <mat-icon>add</mat-icon>  Add
+    </button>
   </div>
 </div>
 
@@ -22,11 +30,11 @@
     </mat-form-field>
   </div>
   <!-- Add button -->
-  <div class="action-button-section">
+  <!-- <div class="action-button-section">
     <button mat-flat-button class="btn w-100" (click)="openDialog()">
       <mat-icon>add</mat-icon>  Add
     </button>
-  </div>
+  </div> -->
 </div>
 
 <!-- Add table -->

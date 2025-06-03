@@ -1,9 +1,9 @@
 import { Component, Input, input, OnInit } from '@angular/core';
-
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard-card',
-  imports: [],
+  imports: [MatIconModule],
   templateUrl: './dashboard-card.component.html',
   styleUrl: './dashboard-card.component.scss'
 })
