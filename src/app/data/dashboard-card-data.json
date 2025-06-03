@@ -1,17 +1,17 @@
 [
     {
         "id": 1,
-        "lable": "Total Customer",
+        "lable": "Total Inevestment",
         "quantity": "50"
     },
     {
         "id": 2,
-        "lable": "Total Customer",
+        "lable": "Total Profit",
         "quantity": "10"
     },
     {
         "id": 3,
-        "lable": "Total Customer",
-        "quantity": "50"
+        "lable": "Pending Cost",
+        "quantity": "10"
     }
 ]
