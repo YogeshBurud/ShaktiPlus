@@ -8,31 +8,34 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardAddInventeryModalComponent } from '../../../feature/dashboard/component/dashboard-add-inventery-modal/dashboard-add-inventery-modal.component';
 import { MatButtonModule } from '@angular/material/button';
-import DASHBOARD_TABLE_DATA from '../../../data/dashboard-table-data.json';
+//import DASHBOARD_TABLE_DATA from '../../../../assets/data/dashboard-table-data.json';
+
+import { DASHBOARD_TABLE_DATA } from "../../../../assets/data/dashboard-table-data2"; // Adjust the path as necessary
+
 import { CommonModule } from '@angular/common';
 
 export interface DashboardTableData {
   partNumber: string;
   partName: string;
-  carsModel: any; 
+  carsModel: any;
   totalQuantity: number;
   availableQuantity: number;
   sellOutQuantity: number;
   price: number;
-  action? :any
+  action?: any
 }
 
 @Component({
   selector: 'app-custom-table',
-  imports: [CommonModule,MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule],
   templateUrl: './custom-table.component.html',
   styleUrl: './custom-table.component.scss'
 })
 export class CustomTableComponent {
 
- displayedColumns: string[] = ['partNumber', 'partName', 'carsModel', 'totalQuantity', 'availableQuantity','sellOutQuantity','price', 'Action'];
- //dataSource = new MatTableDataSource<DashboardTableData>(DASHBOARD_TABLE_DATA);
- dataSource: MatTableDataSource<DashboardTableData>;
+  displayedColumns: string[] = ['partNumber', 'partName', 'carsModel', 'totalQuantity', 'availableQuantity', 'sellOutQuantity', 'price', 'Action'];
+  //dataSource = new MatTableDataSource<DashboardTableData>(DASHBOARD_TABLE_DATA);
+  @Input() dataSource: MatTableDataSource<DashboardTableData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -65,9 +68,9 @@ export class CustomTableComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'submitted') {
-        // Do something after form submission
-        console.log('Form was submitted!');
+      if (result) {
+        // Add the new row to the dataSource
+        this.dataSource.data = [...this.dataSource.data, result];
       }
     });
   }
@@ -80,7 +83,12 @@ export class CustomTableComponent {
 
   onDelete(row: any): void {
     if (confirm('Are you sure you want to delete this item?')) {
-      //this.dataSource.data = this.dataSource.data.filter(item:any => item !== row);
+      const index = this.dataSource.data.findIndex(item => item.partNumber === row.partNumber);
+      if (index !== -1) {
+        // Remove the item from the data source
+        this.dataSource.data.splice(index, 1);
+        this.dataSource._updateChangeSubscription(); // Update the data source
+      }
     }
   }
 
