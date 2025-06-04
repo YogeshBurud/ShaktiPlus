@@ -11,6 +11,15 @@ body {
 }
 
 
+.custom-table.mat-mdc-table {
+    thead, th, .mat-mdc-header-cell {
+        background-color: #072542;
+        color: white;
+        text-transform: uppercase;
+        font-size: 10px;
+        padding: 0 15px;
+    }
+}
 
 .action-button-section {
 
@@ -25,6 +34,10 @@ body {
             font-weight: 600;
         }
 
+    }
+
+     .action-header {
+        text-align: center ;
     }
 
 }
