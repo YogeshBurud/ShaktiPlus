@@ -10,7 +10,19 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+button{
+    cursor: pointer;
+}
 
+.form-group {
+    ng-multiselect-dropdown {
+        .multiselect-dropdown {
+            .dropdown-btn {
+                padding: 11px 15px !important;
+            }
+        }
+    }
+}
 
 .action-button-section {
 

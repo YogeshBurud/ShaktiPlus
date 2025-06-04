@@ -1,66 +1,80 @@
 <mat-card class="form-card">
     <h2 class="pt-0 modal-header" mat-dialog-title>Add Product</h2>
     <form [formGroup]="form" (ngSubmit)="submit()">
-        <div class="row">
-            <div class="form-group col-md-6">
-                <!-- Full-width: Description -->
-                <div fxFlex>
+        <div class="form-control-section">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <!-- Full-width: Description -->
+                    <div fxFlex>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Part Number</mat-label>
+                            <input matInput formControlName="partNumber" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
                     <mat-form-field appearance="outline" class="form-field">
-                        <mat-label>Part Number</mat-label>
-                        <input matInput formControlName="partNumber" />
+                        <mat-label>Part Name</mat-label>
+                        <input matInput formControlName="partName" />
                     </mat-form-field>
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>Part Name</mat-label>
-                    <input matInput formControlName="partName" />
-                </mat-form-field>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Single Price</mat-label>
+                        <input matInput formControlName="singlePrice" type="number" />
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Availability</mat-label>
+                        <input matInput formControlName="availability" type="number" />
+                    </mat-form-field>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>Single Price</mat-label>
-                    <input matInput formControlName="singlePrice" type="number" />
-                </mat-form-field>
-            </div>
-            <div class="form-group col-md-6">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>Availability</mat-label>
-                    <input matInput formControlName="availability" type="number" />
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <mat-form-field>
+            <div class="row mb-4">
+                <div class="form-group col-md-10">
+                    <!-- <mat-form-field>
                     <mat-label>Car Model</mat-label>
                     <mat-select formControlName="carModel" multiple>
                         @for (car of carModelList; track car.label) {
                         <mat-option [value]="car.label">{{car.label}}</mat-option>
                         }
                     </mat-select>
-                </mat-form-field>
-            </div>
+                </mat-form-field> -->
+                    <ng-multiselect-dropdown [placeholder]="'Search Cars'" [settings]="dropdownSettings"
+                        [data]="dropdownList" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedItems"
+                        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                    </ng-multiselect-dropdown>
+                </div>
+                <div class="form-group col-md-2">
+                    <button mat-icon-button class="add-btn" type="button" (click)="toggleAddCarModel()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                @if(showCarModelInput) {
+                <div class="form-group col-md-10">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Enter Car Model</mat-label>
+                        <input matInput formControlName="carModel" />                        
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-md-2">
+                    <button mat-icon-button class="add-btn" type="button" (click)="addCarModel()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                }
 
-            <div class="form-group col-md-6">
-                <mat-form-field>
-                    <mat-label>Fuel Type</mat-label>
-                    <mat-select formControlName="fuelType" multiple>
-                        @for (fuelType of fuelTypeList; track fuelType.value) {
-                        <mat-option [value]="fuelType.value">{{fuelType.viewValue}}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+
             </div>
         </div>
-
         <!-- Submit Button -->
         <div class="row">
             <div class="form-group col-md-6">
                 <div fxLayoutAlign="end">
-                    <button mat-raised-button mat-dialog-close class="submit-btn w-100" type="button">
+                    <button mat-raised-button class="submit-btn w-100" type="button" (click)="cancel()">
                         Cancel
                     </button>
                 </div>

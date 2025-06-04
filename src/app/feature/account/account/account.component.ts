@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardAddInventeryModalComponent } from '../../../feature/dashboard/component/dashboard-add-inventery-modal/dashboard-add-inventery-modal.component';
 import { MatButtonModule } from '@angular/material/button';
-import DASHBOARD_TABLE_DATA from '../../../data/dashboard-table-data.json';
+import DASHBOARD_TABLE_DATA from '../../../../assets/data/dashboard-table-data.json';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 
