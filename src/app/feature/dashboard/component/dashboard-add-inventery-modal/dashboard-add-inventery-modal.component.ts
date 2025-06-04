@@ -7,9 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
-import CAR_LIST from '../../../../data/carList.json';
+import CAR_LIST from '../../../../../assets/data/carList.json';
+import { DashboardDataServiceService } from '../../service/dashboard-data-service.service';
 
 const FUEL_TYPE_LIST = [
   { value: 'petrol', viewValue: 'Petrol' },
@@ -40,10 +41,14 @@ export class DashboardAddInventeryModalComponent {
   stoerdData :any[] = []
 
   form: FormGroup;
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<DashboardAddInventeryModalComponent>) {
+  constructor(
+    private dashboardDataService: DashboardDataServiceService,
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<DashboardAddInventeryModalComponent>
+  ) {
     this.form = this.fb.group({
-      partnumber: [''],
-      description: [''],
+      partNumber: [''],
+      partName: [''],
       singlePrice: [''],
       availability: [''],
       carModel: [''],
@@ -53,7 +58,27 @@ export class DashboardAddInventeryModalComponent {
   }
 
   submit() {
-    console.log(this.form.value);
-    this.dialogRef.close('submitted');
+    if (this.form.valid) {
+      const payload = {
+        partNumber: this.form.value.partNumber,
+        partName: this.form.value.partName,
+        carsModel: Array.isArray(this.form.value.carModel)
+          ? this.form.value.carModel
+          : [this.form.value.carModel], // ensure array
+        totalQuantity: Number(this.form.value.totalAmount),
+        availableQuantity: Number(this.form.value.availability),
+        sellOutQuantity: 0, // default or get from form if needed
+        price: Number(this.form.value.singlePrice)
+      };
+
+      // Call the service to add inventory data
+
+      this.dashboardDataService.addDashboardTableItem(payload).subscribe((updatedData :any) => {
+        this.dialogRef.close(payload); // Pass payload to parent
+       });
+
+    } else {
+      this.dialogRef.close();
+    }
   }
 }
