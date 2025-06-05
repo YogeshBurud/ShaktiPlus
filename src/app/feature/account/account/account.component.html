@@ -1,46 +1,44 @@
 <!-- Add Dropdown  -->
 <div class="dropdown-section d-flex">
   <div class="form-group" style="width: 100%;">
-    <mat-form-field style="width: 93%;">
-      <mat-label>Car Model</mat-label>
-      <mat-select formControlName="carModel" multiple style="width: 100%;">
-        @for (car of carModelList; track car.label) {
-          <mat-option [value]="car.label">{{car.label}}</mat-option>
+    <mat-form-field>
+      <mat-label>Select Member</mat-label>
+      <mat-select>
+        @for (member of accountMemberList; track member.value) {
+        <mat-option [value]="member.value">{{member.viewValue}}</mat-option>
         }
       </mat-select>
     </mat-form-field>
   </div>
 
   <div class="action-button-section d-flex">
-     <button mat-flat-button class="mr-3">Update</button>
+    <button mat-flat-button class="mr-3">Update</button>
 
-       <button mat-flat-button class="btn" (click)="openDialog()">
-      <mat-icon>add</mat-icon>  Add
+    <button mat-flat-button class="btn" (click)="openAccountDialog()">
+      <mat-icon>add</mat-icon> Add
     </button>
   </div>
 </div>
 
 
 <div class="table-header-section">
-    <!-- Add Serchbar -->
+  <!-- Add Serchbar -->
   <div class="filter-section">
     <mat-form-field>
       <mat-label>Search Any Part</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. SPARK PLUG" #input>
     </mat-form-field>
   </div>
-  <!-- Add button -->
-  <!-- <div class="action-button-section">
-    <button mat-flat-button class="btn w-100" (click)="openDialog()">
-      <mat-icon>add</mat-icon>  Add
-    </button>
-  </div> -->
 </div>
 
 <!-- Add table -->
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
-
+  <table class="custom-table" mat-table [dataSource]="dataSource" matSort>
+    <!-- name -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+    </ng-container>
     <!-- partNumber -->
     <ng-container matColumnDef="partNumber">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Part Number </th>
@@ -51,34 +49,20 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Part Name </th>
       <td mat-cell *matCellDef="let row"> {{row.partName}} </td>
     </ng-container>
-    <!-- partType -->
-    <ng-container matColumnDef="carsModel">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Car Model </th>
-      <td mat-cell *matCellDef="let row"> 
-        <ng-container *ngFor="let car of row?.carsModel; let i = index">
-          <span>{{car.name}},</span>
-        </ng-container>
-      </td>
+    <!-- createDate -->
+    <ng-container matColumnDef="createDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Create Date </th>
+      <td mat-cell *matCellDef="let row"> {{row.createDate}} </td>
     </ng-container>
-    <!-- totalQuantity -->
-    <ng-container matColumnDef="totalQuantity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Quantity </th>
-      <td mat-cell *matCellDef="let row"> {{row.totalQuantity}} </td>
+    <!-- updatedDate -->
+    <ng-container matColumnDef="updatedDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
+      <td mat-cell *matCellDef="let row"> {{row.updatedDate}} </td>
     </ng-container>
-    <!-- availableQuantity -->
-    <ng-container matColumnDef="availableQuantity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Available Quantity </th>
-      <td mat-cell *matCellDef="let row"> {{row.availableQuantity}} </td>
-    </ng-container>
-    <!-- sellOutQuantity -->
-    <ng-container matColumnDef="sellOutQuantity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sell Out Quantity </th>
-      <td mat-cell *matCellDef="let row"> {{row.sellOutQuantity}} </td>
-    </ng-container>
-    <!-- price -->
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-      <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+    <!-- number -->
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Number </th>
+      <td mat-cell *matCellDef="let row"> {{row.number}} </td>
     </ng-container>
 
     <!-- Action Column -->
@@ -89,7 +73,7 @@
         <button mat-icon-button color="primary" class="action-btn edit-btn mr-2" (click)="onEdit(row)">
           <mat-icon style="color:rgb(79, 43, 171);">edit</mat-icon>
         </button>
-        <button  mat-icon-button aria-label="Example icon button with a delete icon" (click)="onDelete(row)">
+        <button mat-icon-button aria-label="Example icon button with a delete icon" (click)="onDelete(row)">
           <mat-icon class="danger" style="color:rgb(236, 77, 77);">delete</mat-icon>
         </button>
       </td>
