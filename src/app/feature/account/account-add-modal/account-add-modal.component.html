@@ -1,0 +1,48 @@
+<mat-card class="form-card">
+    <h2 class="pt-0 modal-header" mat-dialog-title>Add Member</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-control-section">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <div fxFlex>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Part Number</mat-label>
+                            <input matInput formControlName="partNumber" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Date</mat-label>
+                        <input matInput formControlName="date" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Total Price</mat-label>
+                        <input matInput formControlName="totalPrice" type="number" />
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Pending Price</mat-label>
+                        <input matInput formControlName="pendingprice" type="number" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <!-- Submit Button -->
+
+        <div class="form-group">
+            <div fxLayoutAlign="end">
+                <button mat-flat-button class="submit-btn w-100" type="submit">
+                    Submit
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+</mat-card>

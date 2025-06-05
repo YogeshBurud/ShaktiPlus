@@ -1,0 +1,44 @@
+.modal-header {
+  background-color: #f5f5f5;
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+mat-form-field{
+  width: 100%;
+}
+
+.form-card {
+  max-width: 900px;
+  padding: 32px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.form-field {
+  width: 100%;
+  font-size: 18px;
+}
+
+input.mat-input-element {
+  height: 40px;
+  font-size: 18px;
+}
+
+.submit-btn {
+  padding: 12px 28px;
+  font-size: 16px;
+  background-color: #072542;
+}
+
+.form-control-section{
+  overflow: auto;
+  overflow-x: hidden;
+  max-height: 400px;
+  padding: 10px 10px;
+}
