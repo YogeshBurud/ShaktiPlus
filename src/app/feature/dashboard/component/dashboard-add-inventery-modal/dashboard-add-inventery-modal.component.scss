@@ -9,12 +9,12 @@
   font-weight: 600;
 }
 
-mat-form-field{
+mat-form-field {
   width: 100%;
 }
 
 .form-card {
-  max-width: 900px;
+  max-width: 100%;
   padding: 32px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -35,10 +35,25 @@ input.mat-input-element {
   font-size: 16px;
 }
 
-.form-control-section{
+.form-control-section {
   overflow: auto;
   overflow-x: hidden;
   max-height: 400px;
   padding: 10px 10px;
   margin-bottom: 20px;
+}
+
+.car-model-input-section {
+  display: flex;
+  align-items: center;
+
+  .add-car-btn {
+    background: #072542;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    height: 55px;
+    border-left: 0;
+  }
 }

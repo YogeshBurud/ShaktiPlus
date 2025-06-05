@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="form-group col-md-10">
+                <div class="form-group col-md-8">
                     <!-- <mat-form-field>
                     <mat-label>Car Model</mat-label>
                     <mat-select formControlName="carModel" multiple>
@@ -44,26 +44,29 @@
                     </mat-select>
                 </mat-form-field> -->
                     <ng-multiselect-dropdown [placeholder]="'Search Cars'" [settings]="dropdownSettings"
-                        [data]="dropdownList" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedItems"
-                        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                        [data]="carModelList" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedItems"
+                        (click)="onItemSelect($event)">
                     </ng-multiselect-dropdown>
                 </div>
-                <div class="form-group col-md-2">
-                    <button mat-icon-button class="add-btn" type="button" (click)="toggleAddCarModel()">
-                        <mat-icon>add</mat-icon>
-                    </button>
+                <div class="form-group col-md-4">
+                    <div class="action-button-section">
+                        <button mat-flat-button class="add-btn btn w-100" type="button" (click)="toggleAddCarModel()">
+                            <mat-icon>add</mat-icon> Add New Car
+                        </button>
+                    </div>
                 </div>
                 @if(showCarModelInput) {
-                <div class="form-group col-md-10">
-                    <mat-form-field appearance="outline" class="form-field">
-                        <mat-label>Enter Car Model</mat-label>
-                        <input matInput formControlName="carModel" />                        
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-md-2">
-                    <button mat-icon-button class="add-btn" type="button" (click)="addCarModel()">
-                        <mat-icon>add</mat-icon>
-                    </button>
+                <div class="form-group col-md-12">
+                    <div class="car-model-input-section">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Enter Car Model</mat-label>
+                            <input matInput formControlName="carModel" />
+                        </mat-form-field>
+                        <button class="add-car-btn btn" (click)="addCarModel($event)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+
                 </div>
                 }
 

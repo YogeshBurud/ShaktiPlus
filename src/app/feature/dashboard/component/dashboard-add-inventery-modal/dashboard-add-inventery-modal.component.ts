@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -48,6 +48,7 @@ export class DashboardAddInventeryModalComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DashboardAddInventeryModalComponent>,
     private toastr: ToastrService,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.form = this.fb.group({
@@ -66,7 +67,7 @@ export class DashboardAddInventeryModalComponent {
       const payload = {
         partNumber: this.form.value.partNumber,
         partName: this.form.value.partName,
-        carsModel: this.selectedItems, // ensure array
+        carsModel: Array.isArray(this.selectedItems) ? this.selectedItems : [],
         totalQuantity: Number(this.form.value.totalAmount),
         availableQuantity: Number(this.form.value.availability),
         sellOutQuantity: 0, // default or get from form if needed
@@ -109,7 +110,8 @@ export class DashboardAddInventeryModalComponent {
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
-      allowSearchFilter: true
+      allowSearchFilter: true,
+      defaultOpen: false,
     };
 
     // assign table row data to the form if it exists
@@ -135,7 +137,6 @@ export class DashboardAddInventeryModalComponent {
     this.dashboardDataService.getCarModelList().subscribe({
       next: (data: any[]) => {
         this.carModelList = data;
-        this.dropdownList = data.map((item, index) => ({ id: index + 1, name: item.name }));
       },
       error: (err: any) => {
         this.toastr.error('Failed to load car models', 'Error', {
@@ -149,18 +150,13 @@ export class DashboardAddInventeryModalComponent {
     this.dialogRef.close(); // Close the dialog without saving
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
 
   toggleAddCarModel() {
     this.showCarModelInput = !this.showCarModelInput;
   }
 
-  addCarModel() {
+  addCarModel(event: any) {
+    event.preventDefault(); // Prevent default form submission
     this.showCarModelInput = !this.showCarModelInput;
 
     let carModelObj = {
@@ -170,25 +166,33 @@ export class DashboardAddInventeryModalComponent {
 
     this.dashboardDataService.addCarModel(carModelObj).subscribe({
       next: (data: any) => {
-        
+
         const confirmed = confirm('Please confirm car model and Fuel Type');
         if (!confirmed) {
           return; // Stop if user cancels
         }
-        this.dropdownList = data;
+
+        this.carModelList = data;
+
         this.toastr.success('Car model added successfully', 'Success', {
           timeOut: 3000,
         });
+
       },
       error: (err: any) => {
-        this.toastr.error('Failed to add car model', 'Error', {
+        this.toastr.error(`'Failed to add car model, ${err.error.error}'`, 'Error', {
           timeOut: 3000,
         });
       }
     });
 
-    this.getAllCarModelList(); // Refresh the car model list
     this.form.patchValue({ carModel: '' }); // Reset the input field
+
   }
+
+  onItemSelect(event: any) {
+    this.getAllCarModelList(); // Refresh the car model list
+  }
+
 
 }

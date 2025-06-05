@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); // Two columns
     gap: 1.5rem; // Spacing between cards
-     width: 100%;
+    width: 100%;
 
     .card {
         border: 1px solid #ccc;
@@ -19,14 +19,25 @@
         font-size: 34px;
         border-radius: 8px 0px 0px 8px;
     }
+
     .card-body {
         align-items: center;
     }
-    // h6 {
-    //     padding: 26px 0px 0px 19px;
-    // }
 
-    // h5 {
-    //     padding: 26px 19px 0px;
-    // }
+    .card-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 3px;
+        width: 100%;
+
+        .card-title{
+            text-transform: uppercase;
+        }
+
+        h5.card-title{
+            font-size: 22px;
+        }
+    }
 }

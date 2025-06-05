@@ -1,11 +1,13 @@
 <div class="card-container">
   @for (card of dashboardCardData; track card.id) {
-    <div class="card col p-0">
-      <div class="card-body d-flex p-0">
-        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_balance"></mat-icon>
-        <h6 class="card-title px-3 mb-0">{{card.lable}}:</h6>
+  <div class="card col p-0">
+    <div class="card-body d-flex p-0">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_balance"></mat-icon>
+      <div class="card-content">
+        <h6 class="card-title px-3 mb-0">{{card.lable}}</h6>
         <h5 class="card-title px-2 mb-0">{{card.quantity}}</h5>
       </div>
     </div>
+  </div>
   }
 </div>

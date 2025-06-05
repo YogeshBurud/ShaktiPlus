@@ -72,7 +72,10 @@ export class CustomTableComponent implements AfterViewInit, OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(DashboardAddInventeryModalComponent, {
       width: '700px',
+      maxWidth  : "80vw"
     });
+
+    
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
