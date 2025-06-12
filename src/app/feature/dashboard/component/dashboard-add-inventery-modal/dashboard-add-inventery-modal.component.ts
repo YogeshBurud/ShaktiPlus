@@ -35,7 +35,6 @@ export class DashboardAddInventeryModalComponent {
   carModelList: any[] = [];
   stoerdData: any[] = []
 
-
   dropdownList: any[] = [];
   selectedItems: any[] = [];
   dropdownSettings: IDropdownSettings = {};
@@ -62,38 +61,56 @@ export class DashboardAddInventeryModalComponent {
   }
 
   submit() {
+    
     if (this.form.valid) {
-
       const payload = {
         partNumber: this.form.value.partNumber,
         partName: this.form.value.partName,
         carsModel: Array.isArray(this.selectedItems) ? this.selectedItems : [],
-        totalQuantity: Number(this.form.value.totalAmount),
+        totalQuantity: Number(this.form.value.availability),
         availableQuantity: Number(this.form.value.availability),
         sellOutQuantity: 0, // default or get from form if needed
         price: Number(this.form.value.singlePrice)
       };
 
-      // Call the service to add inventory data
+      if (this.dialogRef.componentInstance?.data) {
+        this.dashboardDataService.updateDashboardTableItem(payload).subscribe({
+          next: (updatedData: any) => {
+            this.toastr.success('Product updated successfully', 'Success', {
+              timeOut: 3000,
+            });
 
-      this.dashboardDataService.addDashboardTableItem(payload).subscribe({
-        next: (updatedData: any) => {
-          this.toastr.success('Product added successfully', 'Success', {
-            timeOut: 3000,
-          });
+            this.dialogRef.close(payload); // Pass payload to parent
 
-          this.dialogRef.close(payload); // Pass payload to parent
-        },
-        error: (err: any) => {
-          this.toastr.error(err.error.error, 'Failed to Add Product', {
-            timeOut: 3000,
-          });
-        }
-      });
+          },
+          error: (err: any) => {
+            this.toastr.error(err.error.error, 'Failed to Update Product', {
+              timeOut: 3000,
+            });
+          }
+        });      
+      }
+      else {  
+        // Call the service to add inventory data
+        this.dashboardDataService.addDashboardTableItem(payload).subscribe({
+          next: (updatedData: any) => {
+            this.toastr.success('Product added successfully', 'Success', {
+              timeOut: 3000,
+            });
 
+            this.dialogRef.close(payload); // Pass payload to parent
+          },
+          error: (err: any) => {
+            this.toastr.error(err.error.error, 'Failed to Add Product', {
+              timeOut: 3000,
+            });
+          }
+        });
+      }
     } else {
       this.dialogRef.close();
     }
+
   }
 
   ngOnInit() {
@@ -111,7 +128,7 @@ export class DashboardAddInventeryModalComponent {
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
       allowSearchFilter: true,
-      defaultOpen: false,
+
     };
 
     // assign table row data to the form if it exists
@@ -125,7 +142,7 @@ export class DashboardAddInventeryModalComponent {
           partName: rowData.partName,
           singlePrice: rowData.price,
           availability: rowData.availableQuantity,
-          totalAmount: rowData.totalQuantity
+          totalQuantity: rowData.availability
         });
       }
     }

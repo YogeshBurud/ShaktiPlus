@@ -29,7 +29,7 @@ export class DashboardDataServiceService {
 
   // update an existing dashboard item
   updateDashboardTableItem(updatedItem: any): Observable<any> {
-    return this.http.put(`../${API_URL_DASHBOARD_TABLE}/${updatedItem.partnumber}`, updatedItem);
+    return this.http.put(`${API_URL_DASHBOARD_TABLE}/${updatedItem.partnumber}`, updatedItem);
   }
 
   // delete a dashboard item by part number
