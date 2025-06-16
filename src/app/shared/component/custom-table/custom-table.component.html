@@ -2,15 +2,66 @@
   <div class="filter-section">
     <mat-form-field>
       <mat-label>Search Any Part</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. SPARK PLUG" #input>
+      <input matInput [(ngModel)]="searchInputValue" (input)="onSearchInputChange($event, 'inputSearch')"
+        placeholder="Ex. SPARK PLUG" #input>
     </mat-form-field>
   </div>
   <div class="action-button-section">
-    <button mat-flat-button class="btn w-100" (click)="openDialog()">
-      <mat-icon>add</mat-icon>  Add
+    <button mat-flat-button class="btn" (click)="advanceSearch()">
+      <mat-icon>search</mat-icon>Advance Search
+    </button>
+    <button mat-flat-button class="btn" (click)="openDialog()">
+      <mat-icon>add</mat-icon> Add
     </button>
   </div>
 </div>
+
+@if(advanceSearchToggle){
+<div class="search-section">
+  <div class="row">
+    <div class="col col-sm-3">
+      <mat-form-field>
+        <mat-label>Car Names</mat-label>
+        <mat-select [(ngModel)]="selectedCar" (selectionChange)="onSearchInputChange($event, 'Name' )">
+          @for (name of CarNames; track name) {
+          <mat-option [value]="name.value">{{name.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col col-sm-3">
+      <mat-form-field>
+        <mat-label>Car variants</mat-label>
+        <mat-select [(ngModel)]="selectedCarVariant" (selectionChange)="onSearchInputChange($event, 'carVarient')"
+          [disabled]="!selectedCar || selectedCar.length === 0">
+          @for (variant of carVariant; track variant) {
+          <mat-option [value]="variant.value">{{variant.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col col-sm-3">
+      <mat-form-field>
+        <mat-label> Car Years</mat-label>
+        <mat-select [(ngModel)]="selectedCarYear" (selectionChange)="onSearchInputChange($event, 'carYear' )"
+          [disabled]="!selectedCarVariant || selectedCarVariant.length === 0">
+          @for (model of carYear; track model) {
+          <mat-option [value]="model.value">{{model.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col col-sm-3 text-right">
+      <div class="action-button-section">
+        <button mat-flat-button class="btn  mr-2" (click)="resetTableData()"> Reset
+        </button>
+        <button mat-flat-button class="btn  "> Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+}
 
 <div class="mat-elevation-z8">
   <table class="custom-table" mat-table [dataSource]="dataSource" matSort>
@@ -28,7 +79,7 @@
     <!-- partType -->
     <ng-container matColumnDef="carsModel">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Car Model </th>
-      <td mat-cell *matCellDef="let row"> 
+      <td mat-cell *matCellDef="let row">
         <ng-container *ngFor="let car of row?.carsModel; let i = index">
           <span>{{car.name}},</span>
         </ng-container>
@@ -63,7 +114,7 @@
         <button mat-icon-button color="primary" class="action-btn edit-btn mr-2" (click)="onEdit(row)">
           <mat-icon style="color:rgb(79, 43, 171);">edit</mat-icon>
         </button>
-        <button  mat-icon-button aria-label="Example icon button with a delete icon" (click)="onDelete(row)">
+        <button mat-icon-button aria-label="Example icon button with a delete icon" (click)="onDelete(row)">
           <mat-icon class="danger" style="color:rgb(236, 77, 77);">delete</mat-icon>
         </button>
       </td>

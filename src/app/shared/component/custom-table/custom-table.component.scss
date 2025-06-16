@@ -4,7 +4,7 @@
     align-items: center;
 
     .filter-section {
-        width: 75%;
+        width: 66%;
     }
 
     mat-form-field {
@@ -24,4 +24,12 @@
 table th:last-child {
     width: 120px;
     text-align: center;
+}
+
+
+
+
+.dropdown-inline {
+  display: inline-block;
+  margin: 0 10px;
 }

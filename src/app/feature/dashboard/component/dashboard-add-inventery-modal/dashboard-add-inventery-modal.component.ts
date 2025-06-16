@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,6 +32,8 @@ import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-d
 })
 export class DashboardAddInventeryModalComponent {
 
+  headTitle: string = 'Add Product';
+  isProductUpdate: boolean = false;
   carModelList: any[] = [];
   stoerdData: any[] = []
 
@@ -39,7 +41,7 @@ export class DashboardAddInventeryModalComponent {
   selectedItems: any[] = [];
   dropdownSettings: IDropdownSettings = {};
   showCarModelInput: boolean = false;
-
+  totalQuantity: number = 0;
 
   form: FormGroup;
   constructor(
@@ -56,22 +58,25 @@ export class DashboardAddInventeryModalComponent {
       singlePrice: [''],
       availability: [''],
       carModel: [''],
-      totalAmount: [''],
+      totalQuantity: [''],
+      sellOutQuantity: ['']
     });
   }
 
-  submit() {
-    
+ onSubmit(event: MouseEvent)  {
+
     if (this.form.valid) {
       const payload = {
-        partNumber: this.form.value.partNumber,
-        partName: this.form.value.partName,
+        partNumber: this.form.value.partNumber || 0,
+        partName: this.form.value.partName || 0,
         carsModel: Array.isArray(this.selectedItems) ? this.selectedItems : [],
-        totalQuantity: Number(this.form.value.availability),
-        availableQuantity: Number(this.form.value.availability),
-        sellOutQuantity: 0, // default or get from form if needed
-        price: Number(this.form.value.singlePrice)
+        totalQuantity: Number(this.form.value.totalQuantity) || 0,
+        availableQuantity: Number(this.form.value.availability) || 0,
+        sellOutQuantity: Number(this.form.value.sellOutQuantity) || 0, // Default to 0 if not provided
+        price: Number(this.form.value.singlePrice) || 0
       };
+
+      // console.log('Payload:', payload);
 
       if (this.dialogRef.componentInstance?.data) {
         this.dashboardDataService.updateDashboardTableItem(payload).subscribe({
@@ -88,9 +93,9 @@ export class DashboardAddInventeryModalComponent {
               timeOut: 3000,
             });
           }
-        });      
+        });
       }
-      else {  
+      else {
         // Call the service to add inventory data
         this.dashboardDataService.addDashboardTableItem(payload).subscribe({
           next: (updatedData: any) => {
@@ -110,7 +115,6 @@ export class DashboardAddInventeryModalComponent {
     } else {
       this.dialogRef.close();
     }
-
   }
 
   ngOnInit() {
@@ -136,14 +140,18 @@ export class DashboardAddInventeryModalComponent {
       const rowData = this.dialogRef.componentInstance?.data;
 
       if (rowData) {
+        this.headTitle = 'Update Product';
+        this.isProductUpdate = true; // Set to true for update mode
         this.selectedItems = rowData.carsModel || []; // Ensure selectedItems is an array
         this.form.patchValue({
-          partNumber: rowData.partNumber,
-          partName: rowData.partName,
-          singlePrice: rowData.price,
-          availability: rowData.availableQuantity,
-          totalQuantity: rowData.availability
+          partNumber: rowData.partNumber || '',
+          partName: rowData.partName || '',
+          singlePrice: rowData.price || 0,
+          availability: rowData.availableQuantity || 0,
+          totalQuantity: rowData.totalQuantity || 0,
+          sellOutQuantity: rowData.sellOutQuantity || 0,
         });
+        this.totalQuantity = Number(this.form.value.totalQuantity);
       }
     }
 
@@ -210,6 +218,58 @@ export class DashboardAddInventeryModalComponent {
   onItemSelect(event: any) {
     this.getAllCarModelList(); // Refresh the car model list
   }
+
+  // updateAvailableQty(event: any) {
+
+  //   let sellOutQuantity = Number(event.target.value) || 0;
+
+  //   // Ensure available quantity does not go below zero
+  //   if (this.totalQuantity - sellOutQuantity <= 1) {
+  //     this.toastr.error('Sell out quantity cannot exceed total quantity', 'Error', {
+  //       timeOut: 3000,
+  //     });
+  //     this.form.patchValue({ sellOutQuantity: 0 }); // Reset sell out quantity
+  //     return;
+  //   }
+
+  //   // Update available quantity based on total and sell out quantities
+  //   this.form.patchValue({
+  //     availability: this.totalQuantity - sellOutQuantity,
+  //     sellOutQuantity: sellOutQuantity
+  //   });
+
+
+  // }
+
+  updateAvailableQty(event: any) {
+  const sellOutQuantity = Number(event.target.value) || 0;
+  const totalQuantity = Number(this.form.value.totalQuantity) || 0;
+
+  if (sellOutQuantity > totalQuantity) {
+     this.toastr.clear(); 
+    this.toastr.error('Sell out quantity cannot exceed total quantity', 'Error', {
+      timeOut: 3000,
+    });
+
+    // Reset the invalid sellOutQuantity and availability
+    this.form.patchValue({
+      sellOutQuantity: 0,
+      availability: totalQuantity
+    });
+
+    return;
+  }
+
+  // Calculate and update availability
+  const availability = totalQuantity - sellOutQuantity;
+
+  this.form.patchValue({
+    sellOutQuantity: sellOutQuantity,
+    availability: availability
+  });
+}
+
+
 
 
 }

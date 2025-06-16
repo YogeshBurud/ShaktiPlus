@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CustomTableComponent } from "../../../../shared/component/custom-table/custom-table.component";
 import { DashboardCardComponent } from "../dashboard-card/dashboard-card.component";
 
-import DASHBOARD_CARD_DATA from '../../../../../assets/data/dashboard-card-data.json';
+import { DashboardDataServiceService } from '../../service/dashboard-data-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +10,35 @@ import DASHBOARD_CARD_DATA from '../../../../../assets/data/dashboard-card-data.
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
-  cardData: any = DASHBOARD_CARD_DATA; 
+export class DashboardComponent implements OnInit {
+  cardData: any = [];
 
-  constructor() {}
+  constructor(
+    private dashboardDataServiceService: DashboardDataServiceService
+  ) { }
+
+  ngOnInit() {
+    this.getDashboardCardData();
+  }
+
+
+  getAllInfoFromChild(event: any) {
+    this.getDashboardCardData();
+  }
+
+
+
+  getDashboardCardData() {
+    this.dashboardDataServiceService.getDashboardCardData().subscribe({
+      next: (data) => {
+        this.cardData = data;
+      },
+      error: (error) => {
+        console.error('Error fetching dashboard card data:', error);
+      }
+    })
+  }
+
 
 }
 
