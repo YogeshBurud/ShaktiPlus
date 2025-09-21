@@ -18,3 +18,21 @@
         }
     }
 }
+
+
+@media screen and (max-width: 768px) {
+    .main-outer-container {
+        .body-container {
+            flex-direction: column;
+
+            .sidebar-section {
+                display: none;
+            }
+
+            .main-container {
+                width: 100%
+            }
+        }
+    }
+    
+}
