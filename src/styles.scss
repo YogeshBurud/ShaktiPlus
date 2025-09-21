@@ -31,11 +31,14 @@ button{
         font-size: 10px;
         padding: 0 15px;
     }
-    .mat-mdc-header-row{
-        height: 40px;
+    .mat-mdc-header-row, .mat-mdc-row{
+        height: 46px;
     }
     .mat-sort-header-arrow{
         color: white;
+    }
+    .material-icons{
+        font-size: 18px;
     }
 }
 
