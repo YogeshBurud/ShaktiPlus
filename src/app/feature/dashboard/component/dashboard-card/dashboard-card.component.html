@@ -1,11 +1,19 @@
-<div class="card-container">
+<span (click)="toggleCard()" *ngIf="!showCard" class="downarrow">
+  <mat-icon>keyboard_arrow_down</mat-icon>
+</span>
+<span (click)="toggleCard()" *ngIf="showCard" class="downarrow">
+<mat-icon>keyboard_arrow_up</mat-icon>
+  </span>
+<!-- Cards visible when showCard is true -->
+ 
+<div class="card-container hover-wrapper mt-3" *ngIf="showCard">
   @for (card of dashboardCardData; track card.id) {
   <div class="card col p-0">
     <div class="card-body d-flex p-0">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_balance"></mat-icon>
+      <mat-icon fontIcon="account_balance"></mat-icon>
       <div class="card-content">
-        <h6 class="card-title px-3 mb-0">{{card.label}}</h6>
-        <h5 class="card-title px-2 mb-0">{{card.value}}</h5>
+        <h6 class="card-title px-3 mb-0">{{ card.label }}</h6>
+        <h5 class="card-title px-2 mb-0">{{ card.value }}</h5>
       </div>
     </div>
   </div>

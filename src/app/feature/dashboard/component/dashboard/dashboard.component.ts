@@ -13,6 +13,8 @@ import { DashboardDataServiceService } from '../../service/dashboard-data-servic
 export class DashboardComponent implements OnInit {
   cardData: any = [];
 
+
+
   constructor(
     private dashboardDataServiceService: DashboardDataServiceService
   ) { }

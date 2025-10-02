@@ -42,6 +42,7 @@ export class DashboardAddInventeryModalComponent {
   dropdownSettings: IDropdownSettings = {};
   showCarModelInput: boolean = false;
   totalQuantity: number = 0;
+   isReadonly: boolean = false; 
 
   form: FormGroup;
   constructor(
@@ -141,6 +142,7 @@ export class DashboardAddInventeryModalComponent {
 
       if (rowData) {
         this.headTitle = 'Update Product';
+        this.isReadonly = !this.isReadonly;
         this.isProductUpdate = true; // Set to true for update mode
         this.selectedItems = rowData.carsModel || []; // Ensure selectedItems is an array
         this.form.patchValue({
