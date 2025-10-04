@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <div class="action-button-section">
-                        <button mat-flat-button class="add-btn btn w-100" type="button" (click)="toggleAddCarModel()">
+                        <button mat-flat-button class="add-btn btn w-100" type="button" (click)="toggleAddCarModel($event)">
                             <mat-icon>add</mat-icon> Add New Car
                         </button>
                     </div>
@@ -72,6 +72,9 @@
                         <button class="add-car-btn btn" (click)="addCarModel($event)">
                             <mat-icon>add</mat-icon>
                         </button>
+                    </div>
+                    <div>
+                        <p class="text-danger"> Please Enter Car Name, Varient, Year Range [Ex. Swift(ptl)(2001-2010)]</p>
                     </div>
 
                 </div>
