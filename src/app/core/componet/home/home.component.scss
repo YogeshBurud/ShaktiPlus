@@ -4,7 +4,7 @@
         flex-direction: row;
 
         .sidebar-section {
-            width: 20%;
+            width: 15%;
             background: #fff;
             padding: 15px 15px;
             border-right: 2px solid #cccc;
@@ -12,9 +12,9 @@
 
         .main-container {
             padding: 15px 0px;
-            height: calc(100vh - 56px);
+            height: calc(100vh - 60px);
             overflow: auto;
-            width: 80%
+            width: 85%
         }
     }
 }

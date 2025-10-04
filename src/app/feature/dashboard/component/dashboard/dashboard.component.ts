@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { CustomTableComponent } from "../../../../shared/component/custom-table/custom-table.component";
 import { DashboardCardComponent } from "../dashboard-card/dashboard-card.component";
 
 import { DashboardDataServiceService } from '../../service/dashboard-data-service.service';
+import { DashboardTableComponent } from '../dashboard-table/dashboard-table.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CustomTableComponent, DashboardCardComponent],
+  imports: [DashboardTableComponent, DashboardCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

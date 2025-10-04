@@ -1,30 +1,29 @@
-import { AfterViewInit, Component, inject,EventEmitter,Output, Input, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialog } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { DashboardAddInventeryModalComponent } from '../../../feature/dashboard/component/dashboard-add-inventery-modal/dashboard-add-inventery-modal.component';
-import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-
-import { DashboardTableData } from '../../../feature/dashboard/model/dashboard-table-model'
-import { DashboardDataServiceService } from '../../../feature/dashboard/service/dashboard-data-service.service';
+import { DashboardAddInventeryModalComponent } from '../dashboard-add-inventery-modal/dashboard-add-inventery-modal.component';
+import { debounceTime, Subject } from 'rxjs';
+import { DashboardTableData } from '../../model/dashboard-table-model';
+import { DashboardDataServiceService } from '../../service/dashboard-data-service.service';
 import { ToastrService } from 'ngx-toastr';
-import { debounceTime, filter, Subject } from 'rxjs';
-import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-custom-table',
+  selector: 'app-dashboard-table',
   imports: [FormsModule, MatSelectModule, CommonModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule],
-  templateUrl: './custom-table.component.html',
-  styleUrl: './custom-table.component.scss'
+  templateUrl: './dashboard-table.component.html',
+  styleUrl: './dashboard-table.component.scss'
 })
-export class CustomTableComponent implements AfterViewInit, OnInit {
-   @Output() msgToParent : EventEmitter<any> = new EventEmitter<any>();
+export class DashboardTableComponent {
+  @Output() msgToParent: EventEmitter<any> = new EventEmitter<any>();
 
   private searchInput$ = new Subject<any>();
 
@@ -39,31 +38,31 @@ export class CustomTableComponent implements AfterViewInit, OnInit {
 
   readonly dilog = inject(MatDialog);
 
-   // Maruti Suzuki Cars
+  // Maruti Suzuki Cars
 
-CarNames: any[] = [
-  { value: 'alto', viewValue: 'Alto' },
-  { value: 'alto-k10', viewValue: 'Alto K10' },
-  { value: 'swift', viewValue: 'Swift' },
-  { value: 'dzire', viewValue: 'Dzire' },
-  { value: 'baleno', viewValue: 'Baleno' },
-  { value: 'wagonr', viewValue: 'WagonR' },
-  { value: 'ciaz', viewValue: 'Ciaz' },
-  { value: 'ertiga', viewValue: 'Ertiga' },
-  { value: 'xl6', viewValue: 'XL6' },
-  { value: 'brezza', viewValue: 'Brezza' },
-  { value: 'fronx', viewValue: 'Fronx' },
-  { value: 'jimny', viewValue: 'Jimny' },
-  { value: 'grand-vitara', viewValue: 'Grand Vitara' },
-  { value: 'ignis', viewValue: 'Ignis' },
-  { value: 's-presso', viewValue: 'S-Presso' },
-  { value: 'eeco', viewValue: 'Eeco' },
-  { value: 'celerio', viewValue: 'Celerio' },
-  { value: 'super-carry', viewValue: 'Super Carry' },
-  { value: 'swift-dzire-tour', viewValue: 'Swift Dzire Tour' },
-  { value: 'tour-h1', viewValue: 'Tour H1' },
-  { value: 'tour-s', viewValue: 'Tour S' }
-];
+  CarNames: any[] = [
+    { value: 'alto', viewValue: 'Alto' },
+    { value: 'alto-k10', viewValue: 'Alto K10' },
+    { value: 'swift', viewValue: 'Swift' },
+    { value: 'dzire', viewValue: 'Dzire' },
+    { value: 'baleno', viewValue: 'Baleno' },
+    { value: 'wagonr', viewValue: 'WagonR' },
+    { value: 'ciaz', viewValue: 'Ciaz' },
+    { value: 'ertiga', viewValue: 'Ertiga' },
+    { value: 'xl6', viewValue: 'XL6' },
+    { value: 'brezza', viewValue: 'Brezza' },
+    { value: 'fronx', viewValue: 'Fronx' },
+    { value: 'jimny', viewValue: 'Jimny' },
+    { value: 'grand-vitara', viewValue: 'Grand Vitara' },
+    { value: 'ignis', viewValue: 'Ignis' },
+    { value: 's-presso', viewValue: 'S-Presso' },
+    { value: 'eeco', viewValue: 'Eeco' },
+    { value: 'celerio', viewValue: 'Celerio' },
+    { value: 'super-carry', viewValue: 'Super Carry' },
+    { value: 'swift-dzire-tour', viewValue: 'Swift Dzire Tour' },
+    { value: 'tour-h1', viewValue: 'Tour H1' },
+    { value: 'tour-s', viewValue: 'Tour S' }
+  ];
 
 
   carVariant: any[] = [
@@ -114,7 +113,7 @@ CarNames: any[] = [
 
   // getDashboardTableData 
   getDashboardTableData() {
-    this.dashboardDataService.getDashboardTableData().subscribe(data => {
+    this.dashboardDataService.getDashboardTableData().subscribe((data:any) => {
       this.tempDataSource = data;
       this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
@@ -129,7 +128,7 @@ CarNames: any[] = [
       maxWidth: "80vw"
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       if (result) {
         // Add the new row to the dataSource first position
         this.dataSource.data.unshift(result);
@@ -146,16 +145,16 @@ CarNames: any[] = [
       data: row // Pass the row data to the dialog
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       if (result) {
         // Update the row in the dataSource
-        const index = this.dataSource.data.findIndex(item => item.partNumber === result.partNumber);
+        const index = this.dataSource.data.findIndex((item:any) => item.partNumber === result.partNumber);
         if (index !== -1) {
           this.dataSource.data[index] = result;
           this.dataSource._updateChangeSubscription();
         }
         // Call the update service method
-        this.msgToParent.emit('');   
+        this.msgToParent.emit('');
       }
     });
 
@@ -163,7 +162,7 @@ CarNames: any[] = [
 
   onDelete(row: any): void {
     if (confirm('Are you sure you want to delete this item?')) {
-      const index = this.dataSource.data.findIndex(item => item.partNumber === row.partNumber);
+      const index = this.dataSource.data.findIndex((item:any) => item.partNumber === row.partNumber);
       if (index !== -1) {
         // Remove the item from the data source
         this.dataSource.data.splice(index, 1);
@@ -175,7 +174,7 @@ CarNames: any[] = [
               timeOut: 3000,
             });
           },
-          error: (error) => {
+          error: (error : any) => {
             this.toastr.error(error.error.error, 'Failed to delete product', {
               timeOut: 3000,
             });
@@ -300,6 +299,4 @@ CarNames: any[] = [
     this.dataSource.data = this.tempDataSource;
   }
 
-
 }
-

@@ -1,14 +1,15 @@
-
- .downarrow {
-            position: fixed;
-            left: 46%;
-            padding: 0px 29px;
-            background: #072542;
-            z-index: 9;
-            color: white;
-            border-radius: 0 0 10px 10px;
-            top: 50px;
-        }
+.downarrow {
+    position: fixed;
+    left: 50%;
+    padding: 0px 29px;
+    background: #072542;
+    z-index: 9;
+    color: white;
+    border-radius: 0 0 10px 10px;
+    top: 50px;
+    cursor: pointer;
+    line-height: 1;
+}
 
 .card-container {
 
@@ -53,7 +54,7 @@
             font-size: 22px;
         }
     }
-        
+
 }
 
 @media screen and (max-width: 768px) {
@@ -63,5 +64,5 @@
     }
 
     // button
-        
+
 }

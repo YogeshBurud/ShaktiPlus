@@ -4,7 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
-  imports: [MatIcon],
+  imports: [MatIcon, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
