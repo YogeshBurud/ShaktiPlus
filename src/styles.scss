@@ -62,3 +62,18 @@ button{
     }
 
 }
+
+.table-header-section .mat-mdc-text-field-wrapper.mdc-text-field,
+.search-section .mat-mdc-text-field-wrapper.mdc-text-field {
+    height: 50px;
+}
+.table-container .mat-mdc-text-field-wrapper.mdc-text-field{
+    height: 40px;
+}
+
+.form-control-section .mat-mdc-form-field-subscript-wrapper{
+    display: none;
+}
+.form-control-section .mat-mdc-form-field-flex{
+    height: 50px;
+}

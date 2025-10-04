@@ -13,8 +13,6 @@ import { DashboardTableComponent } from '../dashboard-table/dashboard-table.comp
 export class DashboardComponent implements OnInit {
   cardData: any = [];
 
-
-
   constructor(
     private dashboardDataServiceService: DashboardDataServiceService
   ) { }
@@ -23,12 +21,9 @@ export class DashboardComponent implements OnInit {
     this.getDashboardCardData();
   }
 
-
   getAllInfoFromChild(event: any) {
     this.getDashboardCardData();
   }
-
-
 
   getDashboardCardData() {
     this.dashboardDataServiceService.getDashboardCardData().subscribe({

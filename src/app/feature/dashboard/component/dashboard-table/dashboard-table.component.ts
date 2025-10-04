@@ -73,9 +73,35 @@ export class DashboardTableComponent {
 
   carYear: any[] = [
     { value: '2001', viewValue: '2001' },
+    { value: '2002', viewValue: '2002' },
+    { value: '2003', viewValue: '2003' },
+    { value: '2004', viewValue: '2004' },
     { value: '2005', viewValue: '2005' },
+    { value: '2006', viewValue: '2006' },
+    { value: '2007', viewValue: '2007' },
+    { value: '2008', viewValue: '2008' },
+    { value: '2009', viewValue: '2009' },
+    { value: '2010', viewValue: '2010' },
+    { value: '2011', viewValue: '2011' },
+    { value: '2012', viewValue: '2012' },
+    { value: '2013', viewValue: '2013' },
+    { value: '2014', viewValue: '2014' },
+    { value: '2015', viewValue: '2015' },
+    { value: '2016', viewValue: '2016' },
+    { value: '2017', viewValue: '2017' },
+    { value: '2018', viewValue: '2018' },
+    { value: '2019', viewValue: '2019' },
     { value: '2020', viewValue: '2020' },
+    { value: '2021', viewValue: '2021' },
+    { value: '2022', viewValue: '2022' },
+    { value: '2023', viewValue: '2023' },
     { value: '2024', viewValue: '2024' },
+    { value: '2025', viewValue: '2025' },
+    { value: '2026', viewValue: '2026' },
+    { value: '2027', viewValue: '2027' },
+    { value: '2028', viewValue: '2028' },
+    { value: '2029', viewValue: '2029' },
+    { value: '2030', viewValue: '2030' },
   ];
 
   searchInputValue: string = '';
@@ -113,7 +139,7 @@ export class DashboardTableComponent {
 
   // getDashboardTableData 
   getDashboardTableData() {
-    this.dashboardDataService.getDashboardTableData().subscribe((data:any) => {
+    this.dashboardDataService.getDashboardTableData().subscribe((data: any) => {
       this.tempDataSource = data;
       this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
@@ -128,7 +154,7 @@ export class DashboardTableComponent {
       maxWidth: "80vw"
     });
 
-    dialogRef.afterClosed().subscribe((result:any) => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         // Add the new row to the dataSource first position
         this.dataSource.data.unshift(result);
@@ -145,10 +171,10 @@ export class DashboardTableComponent {
       data: row // Pass the row data to the dialog
     });
 
-    dialogRef.afterClosed().subscribe((result:any) => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         // Update the row in the dataSource
-        const index = this.dataSource.data.findIndex((item:any) => item.partNumber === result.partNumber);
+        const index = this.dataSource.data.findIndex((item: any) => item.partNumber === result.partNumber);
         if (index !== -1) {
           this.dataSource.data[index] = result;
           this.dataSource._updateChangeSubscription();
@@ -162,7 +188,7 @@ export class DashboardTableComponent {
 
   onDelete(row: any): void {
     if (confirm('Are you sure you want to delete this item?')) {
-      const index = this.dataSource.data.findIndex((item:any) => item.partNumber === row.partNumber);
+      const index = this.dataSource.data.findIndex((item: any) => item.partNumber === row.partNumber);
       if (index !== -1) {
         // Remove the item from the data source
         this.dataSource.data.splice(index, 1);
@@ -174,7 +200,7 @@ export class DashboardTableComponent {
               timeOut: 3000,
             });
           },
-          error: (error : any) => {
+          error: (error: any) => {
             this.toastr.error(error.error.error, 'Failed to delete product', {
               timeOut: 3000,
             });
