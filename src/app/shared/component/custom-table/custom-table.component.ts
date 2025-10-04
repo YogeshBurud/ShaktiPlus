@@ -39,12 +39,31 @@ export class CustomTableComponent implements AfterViewInit, OnInit {
 
   readonly dilog = inject(MatDialog);
 
+   // Maruti Suzuki Cars
 
-  CarNames: any[] = [
-    { value: 'swift', viewValue: 'Swift' },
-    { value: 'Brezza', viewValue: 'Brezza' },
-    { value: 'Creta', viewValue: 'Creta' },
-  ];
+CarNames: any[] = [
+  { value: 'alto', viewValue: 'Alto' },
+  { value: 'alto-k10', viewValue: 'Alto K10' },
+  { value: 'swift', viewValue: 'Swift' },
+  { value: 'dzire', viewValue: 'Dzire' },
+  { value: 'baleno', viewValue: 'Baleno' },
+  { value: 'wagonr', viewValue: 'WagonR' },
+  { value: 'ciaz', viewValue: 'Ciaz' },
+  { value: 'ertiga', viewValue: 'Ertiga' },
+  { value: 'xl6', viewValue: 'XL6' },
+  { value: 'brezza', viewValue: 'Brezza' },
+  { value: 'fronx', viewValue: 'Fronx' },
+  { value: 'jimny', viewValue: 'Jimny' },
+  { value: 'grand-vitara', viewValue: 'Grand Vitara' },
+  { value: 'ignis', viewValue: 'Ignis' },
+  { value: 's-presso', viewValue: 'S-Presso' },
+  { value: 'eeco', viewValue: 'Eeco' },
+  { value: 'celerio', viewValue: 'Celerio' },
+  { value: 'super-carry', viewValue: 'Super Carry' },
+  { value: 'swift-dzire-tour', viewValue: 'Swift Dzire Tour' },
+  { value: 'tour-h1', viewValue: 'Tour H1' },
+  { value: 'tour-s', viewValue: 'Tour S' }
+];
 
 
   carVariant: any[] = [

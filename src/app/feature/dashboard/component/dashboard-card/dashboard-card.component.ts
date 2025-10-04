@@ -1,19 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
+
 @Component({
   selector: 'app-dashboard-card',
-  imports: [MatIconModule],
+  imports: [MatIconModule,CommonModule],
   templateUrl: './dashboard-card.component.html',
   styleUrl: './dashboard-card.component.scss'
 })
-export class DashboardCardComponent implements OnInit {
+export class DashboardCardComponent  {
   @Input() dashboardCardData: any = '';
+    showCard = false;
 
   constructor(
   ) {  }
 
-  ngOnInit() {
-    // Initialization logic can go here if needed
+  toggleCard() {
+    this.showCard = !this.showCard
   }
 }

@@ -8,7 +8,7 @@
                     <div fxFlex>
                         <mat-form-field appearance="outline" class="form-field">
                             <mat-label>Part Number</mat-label>
-                            <input matInput formControlName="partNumber" />
+                            <input matInput formControlName="partNumber"  [readonly]="isReadonly"/>
                         </mat-form-field>
                     </div>
                 </div>

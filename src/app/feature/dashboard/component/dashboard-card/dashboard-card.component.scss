@@ -1,4 +1,17 @@
+
+ .downarrow {
+            position: fixed;
+            left: 46%;
+            padding: 0px 29px;
+            background: #072542;
+            z-index: 9;
+            color: white;
+            border-radius: 0 0 10px 10px;
+            top: 50px;
+        }
+
 .card-container {
+
     display: grid;
     grid-template-columns: repeat(3, 1fr); // Two columns
     gap: 1.5rem; // Spacing between cards
@@ -32,18 +45,23 @@
         gap: 3px;
         width: 100%;
 
-        .card-title{
+        .card-title {
             text-transform: uppercase;
         }
 
-        h5.card-title{
+        h5.card-title {
             font-size: 22px;
         }
     }
+        
 }
+
 @media screen and (max-width: 768px) {
     .card-container {
         grid-template-columns: repeat(1, 1fr);
         gap: 0.5rem;
     }
+
+    // button
+        
 }
