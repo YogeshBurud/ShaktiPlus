@@ -63,7 +63,7 @@ export class DashboardAddInventeryModalComponent {
     });
   }
 
- onSubmit(event: MouseEvent)  {
+  onSubmit(event: MouseEvent) {
 
     if (this.form.valid) {
       const payload = {
@@ -176,7 +176,8 @@ export class DashboardAddInventeryModalComponent {
   }
 
 
-  toggleAddCarModel() {
+  toggleAddCarModel(event: any) {
+    event?.stopPropagation(); // Prevent event bubbling
     this.showCarModelInput = !this.showCarModelInput;
   }
 
@@ -189,27 +190,31 @@ export class DashboardAddInventeryModalComponent {
       name: this.form.value.carModel,
     };
 
-    this.dashboardDataService.addCarModel(carModelObj).subscribe({
-      next: (data: any) => {
+    const confirmed = confirm('Please confirm car model and Fuel Type');
+    if (!confirmed) {
+          this.form.patchValue({ carModel: '' }); // Reset the input field
+      return; // Stop if user cancels
+    }
+    else {
 
-        const confirmed = confirm('Please confirm car model and Fuel Type');
-        if (!confirmed) {
-          return; // Stop if user cancels
+      this.dashboardDataService.addCarModel(carModelObj).subscribe({
+        next: (data: any) => {
+
+          this.carModelList = data;
+
+          this.toastr.success('Car model added successfully', 'Success', {
+            timeOut: 3000,
+          });
+
+        },
+        error: (err: any) => {
+          this.toastr.error(`'Failed to add car model, ${err.error.error}'`, 'Error', {
+            timeOut: 3000,
+          });
         }
+      });
+    }
 
-        this.carModelList = data;
-
-        this.toastr.success('Car model added successfully', 'Success', {
-          timeOut: 3000,
-        });
-
-      },
-      error: (err: any) => {
-        this.toastr.error(`'Failed to add car model, ${err.error.error}'`, 'Error', {
-          timeOut: 3000,
-        });
-      }
-    });
 
     this.form.patchValue({ carModel: '' }); // Reset the input field
 
@@ -242,32 +247,32 @@ export class DashboardAddInventeryModalComponent {
   // }
 
   updateAvailableQty(event: any) {
-  const sellOutQuantity = Number(event.target.value) || 0;
-  const totalQuantity = Number(this.form.value.totalQuantity) || 0;
+    const sellOutQuantity = Number(event.target.value) || 0;
+    const totalQuantity = Number(this.form.value.totalQuantity) || 0;
 
-  if (sellOutQuantity > totalQuantity) {
-     this.toastr.clear(); 
-    this.toastr.error('Sell out quantity cannot exceed total quantity', 'Error', {
-      timeOut: 3000,
-    });
+    if (sellOutQuantity > totalQuantity) {
+      this.toastr.clear();
+      this.toastr.error('Sell out quantity cannot exceed total quantity', 'Error', {
+        timeOut: 3000,
+      });
 
-    // Reset the invalid sellOutQuantity and availability
+      // Reset the invalid sellOutQuantity and availability
+      this.form.patchValue({
+        sellOutQuantity: 0,
+        availability: totalQuantity
+      });
+
+      return;
+    }
+
+    // Calculate and update availability
+    const availability = totalQuantity - sellOutQuantity;
+
     this.form.patchValue({
-      sellOutQuantity: 0,
-      availability: totalQuantity
+      sellOutQuantity: sellOutQuantity,
+      availability: availability
     });
-
-    return;
   }
-
-  // Calculate and update availability
-  const availability = totalQuantity - sellOutQuantity;
-
-  this.form.patchValue({
-    sellOutQuantity: sellOutQuantity,
-    availability: availability
-  });
-}
 
 
 
