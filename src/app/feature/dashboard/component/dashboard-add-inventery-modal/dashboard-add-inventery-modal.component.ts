@@ -186,7 +186,14 @@ export class DashboardAddInventeryModalComponent {
   addCarModel(event: any) {
     event.preventDefault(); // Prevent default form submission
     this.showCarModelInput = !this.showCarModelInput;
-
+    const carModelValue = this.form.value.carModel?.trim();
+  // ✅ Step 1: check for empty value
+  if (!carModelValue) {
+    this.toastr.error('Car model name cannot be empty', 'Warning', {
+      timeOut: 3000,
+    });
+    return;
+  }
     let carModelObj = {
       id: this.carModelList.length + 1,
       name: this.form.value.carModel,
