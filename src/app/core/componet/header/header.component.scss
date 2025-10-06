@@ -10,6 +10,10 @@
     .nav-link {
         color: #fff
     }
+}
 
-
+@media (max-width: 768px) {
+    .navbar-light .navbar-toggler{
+        background-color: #fff;
+    }
 }
