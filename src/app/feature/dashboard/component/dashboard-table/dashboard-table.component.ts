@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +15,7 @@ import { DashboardTableData } from '../../model/dashboard-table-model';
 import { DashboardDataServiceService } from '../../service/dashboard-data-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
+import * as XLSX from 'xlsx'; // Install using npm install xlsx
 
 @Component({
   selector: 'app-dashboard-table',
@@ -23,6 +24,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './dashboard-table.component.scss'
 })
 export class DashboardTableComponent {
+  @ViewChild('materialTable', { static: false }) materialTable: ElementRef;
+
   @Output() msgToParent: EventEmitter<any> = new EventEmitter<any>();
 
   private searchInput$ = new Subject<any>();
@@ -323,6 +326,44 @@ export class DashboardTableComponent {
     this.selectedCarYear = '';
     this.dataSource.filter = "";
     this.dataSource.data = this.tempDataSource;
+  }
+
+
+
+exportTable(): void {
+  // Prepare data for export
+  const exportData = this.dataSource.data.map(row => ({
+    'Part No': row.partNumber,
+    'Part Name': row.partName,
+    'Car Model': Array.isArray(row.carsModel) ? row.carsModel.map((c: any) => c.name).join(', ') : row.carsModel,
+    'Total Qt': row.totalQuantity,
+    'Available Qt': row.availableQuantity,
+    'Sell Out Qt': row.sellOutQuantity,
+    'Price': row.price
+  }));
+
+  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  XLSX.writeFile(wb, 'your_table_data.xlsx');
+}
+
+  convertToCsv(data: any[]): string {
+    const header = Object.keys(data[0]).join(','); // Assuming all objects have same keys
+    const rows = data.map(row => Object.values(row).join(','));
+    return [header, ...rows].join('\n');
+  }
+
+  downloadFile(content: string, filename: string, mimeType: string): void {
+    const blob = new Blob([content], { type: mimeType });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   }
 
 }
